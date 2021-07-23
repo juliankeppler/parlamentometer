@@ -5,14 +5,14 @@ namespace sweproject {
     class Program {
         static void Main(string[] args) {
             DIP d = new DIP();
-            int n;
+            int results;
             try {
-                n = d.GetResults("Corona");
+                results = d.GetResults("Corona", new int[] {18,19});
+                Console.WriteLine(results);
             } catch (ArgumentException) {
                 // Ask user to provide a search term
                 Console.WriteLine("Invalid search term");
             }
-
         }
     }
 }

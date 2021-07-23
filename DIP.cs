@@ -1,8 +1,8 @@
-using System.Linq;
-using System.Web;
-using System.Collections.Specialized;
-using System.Net;
 using System;
+using System.Net;
+using System.Web;
+using System.Linq;
+using System.Collections.Specialized;
 using Newtonsoft.Json;
 
 
@@ -41,10 +41,13 @@ public class DIP {
         wc.Headers.Add("Referer", "https://dip.bundestag.de/");
     }
 
-    public int GetResults(string term) {
+    public int GetResults(string term, int[] electionPeriod) {
         NameValueCollection args = new NameValueCollection();
         args.Add("term", term);
         args.Add("sort", "datum_auf");
+        foreach (int i in electionPeriod) {
+            args.Add("f.wahlperiode", i.ToString());
+        }
         args.Add("rows", "1");
         dynamic resp;
         try {
@@ -53,5 +56,9 @@ public class DIP {
             throw;
         }
         return resp.numFound;
+    }
+    
+    public int GetResults(string term) {
+        return GetResults(term, new int[] {});
     }
 }
