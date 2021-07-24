@@ -175,19 +175,57 @@ public class DIP {
         return res;
     }
 
+    private SortedDictionary<string, int> FillZeroes(SortedDictionary<string, int> dict, GroupMode mode) {
+
+        string first = dict.Keys.First();
+        string last = dict.Keys.Last();
+
+        switch (mode) {
+        case GroupMode.Year:
+            int x = Convert.ToInt32(first);
+            int y = Convert.ToInt32(last);
+
+            for (int i = x+1; i < y; i++) {
+                if (!dict.ContainsKey(i.ToString())) {
+                    dict[i.ToString()] = 0;
+                }
+            }
+            break;
+        case GroupMode.Month:
+            int firsty = Convert.ToInt32(first.Substring(0,4));
+            int firstm = Convert.ToInt32(first.Substring(5,2));
+            int lasty = Convert.ToInt32(last.Substring(0,4));
+            int lastm = Convert.ToInt32(last.Substring(5,2));
+            for (int i = firstm+1; i<=12; i++) {
+                dict[firsty + "-" + i.ToString("00")] = 0;
+            }
+            for (int i = firsty+1; i<lasty; i++) {
+                for (int j = 1; j <= 12; j++) {
+                    dict[i + "-" + j.ToString("00")] = 0;
+                }
+            }
+            for (int i = 1; i<lastm; i++) {
+                dict[lasty + "-" + i.ToString("00")] = 0;
+            }
+            break;
+        }
+
+        return dict;
+    }
+
     /// <summary>
     /// Groups all mentions of a search term by time.
     /// </summary>
     /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
     /// <param name="term">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
     /// <param name="term">An <see cref="T:int[]"/> containing the selected election periods.</param>
-    /// <returns>A <see cref="System.Collections.Generic.Dictionary{System.String, System.Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
+    /// <returns>A <see cref="System.Collections.Generic.SortedDictionary{System.String, System.Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
     /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
     /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
-    public Dictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriod) {
+    public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriod) {
         
         List<string> mentions = GetMentions(term, electionPeriod);
-        Dictionary<string, int> res = new Dictionary<string, int>();
+        SortedDictionary<string, int> res = new SortedDictionary<string, int>();
 
         foreach (string mention in mentions) {
 
@@ -206,6 +244,8 @@ public class DIP {
                 res[m] = 1;
             }
         }
+        res = FillZeroes(res, mode);
+
         return res;
     }
 
@@ -217,7 +257,7 @@ public class DIP {
     /// <returns>A <see cref="System.Collections.Generic.Dictionary{System.String, System.Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
     /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
     /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
-    public Dictionary<string, int> GetRelevance(string term, GroupMode mode) {
+    public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode) {
         return GetRelevance(term, mode, new int[]{});
     }
 
