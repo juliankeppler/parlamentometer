@@ -1,39 +1,33 @@
-using System;
-using ScottPlot;
+﻿using System;
 using System.Collections.Generic;
 
 namespace sweproject {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Start");
-            DateTime starttime = DateTime.Now;
 
-            //////
-            string term = "corona";
+            string term = "Bier";
             DIP dip = new DIP();
-            int results;
+            SortedDictionary<string, int> buckets = new SortedDictionary<string, int>();
             try {
-                results = dip.GetResults(term);
+                int results = dip.GetResults(term, new int[] {19});
                 Console.WriteLine(results);
             } catch (ArgumentException) {
                 // Ask user to provide a search term
                 Console.WriteLine("Invalid search term");
             }
             try {
-                Dictionary<string, int> buckets = dip.GetRelevance(term, GroupMode.Month);
+                buckets = dip.GetRelevance(term, GroupMode.Month, new int[] {19});
                 foreach (KeyValuePair<string, int> kvp in buckets) {
                     Console.WriteLine("Month={0}, Mentions={1}", kvp.Key, kvp.Value);
                 }
-
             } catch (ArgumentException) {
                 // Ask user to provide a search term
                 Console.WriteLine("Invalid search term");
             }
-            /////
-            
-            DateTime endtime = DateTime.Now;
-            TimeSpan runtime = endtime - starttime;
-            Console.WriteLine(runtime.ToString());
+
+            foreach (string date in buckets.Keys) {
+                Console.WriteLine(date);
+            }
         }
     }
 }
