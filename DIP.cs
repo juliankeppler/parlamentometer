@@ -2,10 +2,11 @@ using System;
 using System.Net;
 using System.Web;
 using System.Linq;
+using System.Threading;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Threading;
+
 
 public enum GroupMode{Year,Month}
 
@@ -197,15 +198,24 @@ public class DIP {
             int lasty = Convert.ToInt32(last.Substring(0,4));
             int lastm = Convert.ToInt32(last.Substring(5,2));
             for (int i = firstm+1; i<=12; i++) {
-                dict[firsty + "-" + i.ToString("00")] = 0;
+                string key = firsty + "-" + i.ToString("00");
+                if (!dict.ContainsKey(key)) {
+                    dict[key] = 0;
+                }
             }
             for (int i = firsty+1; i<lasty; i++) {
                 for (int j = 1; j <= 12; j++) {
-                    dict[i + "-" + j.ToString("00")] = 0;
+                    string key = i + "-" + j.ToString("00");
+                    if (!dict.ContainsKey(key)) {
+                        dict[key] = 0;
+                    }
                 }
             }
             for (int i = 1; i<lastm; i++) {
-                dict[lasty + "-" + i.ToString("00")] = 0;
+                string key = lasty + "-" + i.ToString("00");
+                if (!dict.ContainsKey(key)) {
+                    dict[key] = 0;
+                }
             }
             break;
         }
