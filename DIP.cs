@@ -8,7 +8,9 @@ using Newtonsoft.Json;
 using System.Threading;
 
 
+
 public class DIP {
+    public enum GroupMode{Year,Month}
     private static string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; //The public API-Key for the DIP-API
     private static string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; //The base URL for all requests to the DIP-API
     private WebClient wc = new WebClient(); // The client used to perform all http requests to the DIP APi
@@ -100,7 +102,7 @@ public class DIP {
         return GetResults(term, new int[]{});
     }
 
-    private string[] GetDocuments(string term, int[] electionPeriod) {
+    private List<string> GetMentions(string term, int[] electionPeriod) {
         NameValueCollection args = SetDefaultParams(term, electionPeriod);
 
         int n = 0;
@@ -120,6 +122,7 @@ public class DIP {
 
         List<string> res = new List<string>{};
 
+        Console.WriteLine("Fetching data...");
         for (int i = 0; i < requests; i++)
         {
             args.Set("start", (i*batchsize).ToString());
@@ -141,17 +144,36 @@ public class DIP {
                 res.Add(document.datum.ToString());
             }
         }
-        Console.WriteLine($"{res.Count}");
-        return null;
+        return res;
     }
     
-    public Dictionary<string, int> GetRelevance(string term, int[] electionPeriod) {
-        GetDocuments(term, electionPeriod);
-        return null;
+    public Dictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriod) {
+        
+        List<string> mentions = GetMentions(term, electionPeriod);
+        Dictionary<string, int> res = new Dictionary<string, int>();
+
+        foreach (string mention in mentions) {
+
+            // trim strings to identify a month or year
+            string m = mention;
+            if (mode == GroupMode.Month) {
+                m = mention.Remove(mention.Length-3, 3);
+            } else {
+                m = mention.Remove(mention.Length-6, 6);
+            }
+
+            // put mentions into buckets
+            if (res.ContainsKey(m)) {
+                res[m]++;
+            } else {
+                res[m] = 1;
+            }
+        }
+        return res;
     }
 
-    public Dictionary<string, int> GetRelevance(string term) {
-        return GetRelevance(term, new int[]{});
+    public Dictionary<string, int> GetRelevance(string term, GroupMode mode) {
+        return GetRelevance(term, mode, new int[]{});
     }
 
 }
