@@ -10,6 +10,10 @@ using System.Threading;
 public enum GroupMode{Year,Month}
 
 public class DIP {
+    /// <summary>
+    /// Used to interact with the DIP API.
+    /// </summary>
+   
     private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; //The public API-Key for the DIP-API
     private const string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; //The base URL for all requests to the DIP-API
     private WebClient wc = new WebClient(); // The client used to perform all http requests to the DIP APi
@@ -63,6 +67,12 @@ public class DIP {
         return obj;
     }
 
+    /// <summary>
+    /// Helper method that sets the standard parameters of a query string.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <param name="electionPeriod">A <see cref="T:int[]"/> containing the selected election periods.</param>
+    /// <returns>A <see cref="System.Collections.Specialized.NameValueCollection"/> holding the query args.</returns>
     private NameValueCollection SetDefaultParams(string term, int[] electionPeriod) {
         NameValueCollection args = new NameValueCollection();
         args.Add("term", term);
@@ -74,6 +84,13 @@ public class DIP {
         return args;
     }
 
+    /// <summary>
+    /// Retrieves the number of results found for a given search term.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <param name="electionPeriod">A <see cref="T:int[]"/> containing the selected election periods.</param>
+    /// <returns>An <see cref="System.Int32"/> representing the number of results found.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
     public int GetResults(string term, int[] electionPeriod) {
 
         // Create request query
@@ -94,11 +111,25 @@ public class DIP {
         numFoundCache.Add(term+electionPeriod.ToString(), n);
         return n;
     }
-    
+
+    /// <summary>
+    /// Retrieves the number of results found for a given search term.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <returns>An <see cref="System.Int32"/> representing the number of results found.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
     public int GetResults(string term) {
         return GetResults(term, new int[]{});
     }
 
+    /// <summary>
+    /// Gets a List containing the dates of each mention of the search term.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <param name="electionPeriod">A <see cref="T:int[]"/> containing the selected election periods.</param>
+    /// <returns>A <see cref="System.Collections.Generic.List{string}"/> of dates for each time the term was mentioned. Dates may appear multiple times when the term was mention more than once on a given day.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
+    /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
     private List<string> GetMentions(string term, int[] electionPeriod) {
         NameValueCollection args = SetDefaultParams(term, electionPeriod);
 
@@ -143,7 +174,16 @@ public class DIP {
         }
         return res;
     }
-    
+
+    /// <summary>
+    /// Groups all mentions of a search term by time.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <param name="term">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
+    /// <param name="term">An <see cref="T:int[]"/> containing the selected election periods.</param>
+    /// <returns>A <see cref="System.Collections.Generic.Dictionary{System.String, System.Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
+    /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
     public Dictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriod) {
         
         List<string> mentions = GetMentions(term, electionPeriod);
@@ -169,6 +209,14 @@ public class DIP {
         return res;
     }
 
+    /// <summary>
+    /// Groups all mentions of a search term by time.
+    /// </summary>
+    /// <param name="term">A <see cref="System.String"/> representing the search term.</param>
+    /// <param name="term">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
+    /// <returns>A <see cref="System.Collections.Generic.Dictionary{System.String, System.Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
+    /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
     public Dictionary<string, int> GetRelevance(string term, GroupMode mode) {
         return GetRelevance(term, mode, new int[]{});
     }
