@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ScottPlot;
 using System.Collections.Generic;
 
@@ -20,7 +20,7 @@ namespace sweproject {
                 Console.WriteLine("Invalid search term");
             }
             try {
-                Dictionary<string, int> buckets = dip.GetRelevance(term, DIP.GroupMode.Month);
+                Dictionary<string, int> buckets = dip.GetRelevance(term, GroupMode.Month);
                 foreach (KeyValuePair<string, int> kvp in buckets) {
                     Console.WriteLine("Month={0}, Mentions={1}", kvp.Key, kvp.Value);
                 }

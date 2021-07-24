@@ -7,15 +7,19 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Threading;
 
-
+public enum GroupMode{Year,Month}
 
 public class DIP {
-    public enum GroupMode{Year,Month}
-    private static string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; //The public API-Key for the DIP-API
-    private static string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; //The base URL for all requests to the DIP-API
+    private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; //The public API-Key for the DIP-API
+    private const string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; //The base URL for all requests to the DIP-API
     private WebClient wc = new WebClient(); // The client used to perform all http requests to the DIP APi
-
     private Dictionary<string, int> numFoundCache = new Dictionary<string, int>{};
+    public DIP() {
+        // Set authorization headers to access the advanced DIP API
+        wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
+        wc.Headers.Add("Origin", "https://dip.bundestag.de");
+        wc.Headers.Add("Referer", "https://dip.bundestag.de/");
+    }
 
     /// <summary>
     /// Converts a given NameValueCollection with query arguments into a query string.
@@ -68,13 +72,6 @@ public class DIP {
             args.Add("f.wahlperiode", i.ToString());
         }
         return args;
-    }
-
-    public DIP() {
-        // Set authorization headers to access the advanced DIP API
-        wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
-        wc.Headers.Add("Origin", "https://dip.bundestag.de");
-        wc.Headers.Add("Referer", "https://dip.bundestag.de/");
     }
 
     public int GetResults(string term, int[] electionPeriod) {
