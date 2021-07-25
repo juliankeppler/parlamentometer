@@ -71,7 +71,7 @@ public static class Plotter {
         plt.XAxis.TickDensity(0.5);
         plt.XAxis.TickMarkColor(Color.FromArgb(0, Color.Black));
         plt.YAxis.Ticks(true, false, true);
-        plt.YAxis.Label($"Reden in denen {term} erwähnt wurde");
+        plt.YAxis.Label($"Reden in denen '{term}' erwähnt wurde");
         plt.YAxis.TickLabelStyle(color: labelColor);
         plt.YAxis.TickMarkColor(gridColor);
         plt.YAxis.TickDensity(0.8);

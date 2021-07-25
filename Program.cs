@@ -68,15 +68,17 @@ namespace sweproject {
                 }
             }
 
+            
             // Check if user provided valid election periods
-            if (periods.Min() < 1) {
-                Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
-                goto ReadPeriods;
-            } else if (periods.Max() > 19) {
-                Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
-                goto ReadPeriods;
+            if (periods.Length != 0) {
+                if (periods.Min() < 1) {
+                    Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
+                    goto ReadPeriods;
+                } else if (periods.Max() > 19) {
+                    Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
+                    goto ReadPeriods;
+                }
             }
-
 
             // Query the DIP API for amount of results for given term in given time frame
             Console.WriteLine("Durchsuche DIP nach Redebeiträgen mit dem Wort {0}...", term);
