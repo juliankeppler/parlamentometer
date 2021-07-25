@@ -1,19 +1,20 @@
 @startuml
-class DIP {
-  -APIKey: String << get >>
-  -URLBase: String << get >>
-  -numFoundCache: Dictionary<string, int> << get >>
-  -ToQueryString(args: NameValueCollection ): String
-  -SetDefaultParams (term: string, electionPeriod: int[]): NameValueCollection
-  -Request(args: NameValuecollection): dynamic
-  -GetMentions(term: string, electionPeriod: int[]): List
-  +DIP() << constructor >>
-  +GetResults(term: string, electionPeriod: Int[]): Int 
-  +GetResults(term: string): Int 
-  +GetRelevance(GroupMode: mode, term: string): Dictionary<string, int>
-  +GetRelevance(GroupMode: mode, term: string, electionPeriod: int[]): Dictionary<string, int>
+class "DIP" {
+    - APIKey: String
+    - URLBase: String
+    - numFoundCache: Dictionary<string, int>
+    - electroalPeriods: Dictionary<int, string>
+    - ToQueryString(args: NameValueCollection ): String
+    - SetDefaultParams (term: string, electionPeriod: int[]): NameValueCollection
+    - Request(args: NameValuecollection): dynamic
+    - GetMentions(term: string, electionPeriod: int[]): List
+    + DIP() << constructor >>
+    + GetResults(term: string, electionPeriod: Int[]): Int 
+    + GetResults(term: string): Int 
+    + GetRelevance(GroupMode: mode, term: string): Dictionary<string, int>
+    + GetRelevance(GroupMode: mode, term: string, electionPeriod: int[]): Dictionary<string, int>
 }
-GroupMode --* DIP
+
 enum GroupMode{
   Year
   Month

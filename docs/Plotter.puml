@@ -1,0 +1,11 @@
+@startuml Plotter
+class "Plotter" <<static>>  {
+    - graphColor: Color
+    - labelColor: Color
+    - gridColor:  Color
+    - XToDouble(SortedDictionary<string, int> buckets, GroupMode mode): double[]
+    - YToDouble(SortedDictionary<string, int> buckets): double[]
+    - ConvertInput(SortedDictionary<string, int> buckets, GroupMode mode): (double[], double[])
+    + Plot(string term, SortedDictionary<string, int> buckets, GroupMode mode): void
+}
+@enduml

@@ -7,6 +7,11 @@ using System.Drawing;
 
 public static class Plotter {
 
+    // Diagram colors
+    static private Color graphColor = Color.FromArgb(255, 33, 150, 243);
+    static private Color labelColor = Color.FromArgb(150, Color.Black);
+    static private Color gridColor = Color.FromArgb(40, Color.Black);
+
     //X-Value Conversion
     private static double[] XToDouble(SortedDictionary<string, int> buckets, GroupMode mode) {
 
@@ -42,22 +47,17 @@ public static class Plotter {
     }      
     
     //Calling Conversion method depending on mode
-    private static Tuple<double[], double[]> ConvertInput(SortedDictionary<string, int> buckets, GroupMode mode) {
+    private static (double[], double[]) ConvertInput(SortedDictionary<string, int> buckets, GroupMode mode) {
         double[] xarray = XToDouble(buckets, mode);
         double[] yarray = YToDouble(buckets);
     
-        return Tuple.Create(xarray, yarray);
+        return (xarray, yarray);
     }
     
     //Printing Graph
     public static void Plot(string term, SortedDictionary<string, int> buckets, GroupMode mode){
         
         var (dataX, dataY) = ConvertInput(buckets, mode);
-
-        // Diagram colors
-        Color graphColor = Color.FromArgb(255, 33, 150, 243);
-        Color labelColor = Color.FromArgb(150, Color.Black);
-        Color gridColor = Color.FromArgb(40, Color.Black);
 
         // Diagram dimensions
         var plt = new ScottPlot.Plot(1080, 400);

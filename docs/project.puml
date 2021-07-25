@@ -1,0 +1,6 @@
+@startuml Project
+!include .\\DIP.puml
+!include .\\Plotter.puml
+hide empty members
+scale 2
+@enduml
