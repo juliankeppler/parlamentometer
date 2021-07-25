@@ -3,6 +3,7 @@ using ScottPlot;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Drawing;
 
 public static class Plotter {
 
