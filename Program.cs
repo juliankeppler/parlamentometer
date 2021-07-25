@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,13 @@ namespace sweproject {
             SortedDictionary<string, int> buckets = new SortedDictionary<string, int>();
             try {
                 buckets = dip.GetRelevance(term, mode, periods);
+
             } catch (ArgumentException) {
                 Console.WriteLine("Invalid search term (1)");
             } catch (IndexOutOfRangeException) {
                 Console.WriteLine("Für diesen Suchbegriff wurden im gegebenen Zeitraum keine Ergebnisse gefunden.");
             }
-            
+
             // Create the diagram
             Plotter.Plot(term, buckets, mode);
         }
@@ -83,6 +85,7 @@ namespace sweproject {
             try {
                 results = dip.GetResults(term, periods);
                 Console.WriteLine(results);
+
             } catch (ArgumentException) {
                 Console.WriteLine("Der eingebene Wert ist kein gültiger Suchbegriff.");
                 goto ReadTerm;
