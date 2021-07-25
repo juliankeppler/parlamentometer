@@ -3,7 +3,6 @@ using ScottPlot;
 using System.Linq;
 using System.Collections.Generic;
 
-
 public static class Plotter {
 
     //X-Value Conversion Months
@@ -73,11 +72,13 @@ public static class Plotter {
     //Printing Graph
     public static void Plot(SortedDictionary<string, int> buckets, GroupMode mode){
         var (dataX, dataY) = ConvertInput(buckets, mode);
-        foreach(double x in dataX) {
-            Console.WriteLine(x);
-        }
+        // foreach(double x in dataX) {
+        //     Console.WriteLine(x);
+        // }
         var plt = new ScottPlot.Plot(1920, 1080);
         plt.SetAxisLimits(dataX.Min(), dataX.Max(), dataY.Min(), dataY.Max()+0.1*dataY.Max());
+        // var psi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataX, dataY, resolution: 5);
+        // plt.AddScatter(psi.interpolatedXs, psi.interpolatedYs, lineWidth: 2, markerSize: 0);
         plt.AddScatter(dataX, dataY, lineWidth: 3, markerSize: 0);
         plt.SaveFig("Graph0.png");
     }

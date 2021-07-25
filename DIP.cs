@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-
 public enum GroupMode{Year,Month}
 
 public class DIP {
@@ -155,7 +154,8 @@ public class DIP {
         for (int i = 0; i < requests; i++)
         {
             args.Set("start", (i*batchsize).ToString());
-            Console.WriteLine($"n={n}, batchsize={batchsize}, i={i}, start={i*batchsize}, progress={String.Format("{0:P0}", (double)res.Count/n)}");
+            //Console.WriteLine($"n={n}, batchsize={batchsize}, i={i}, start={i*batchsize}, progress={String.Format("{0:P0}", (double)res.Count/n)}");
+            Console.WriteLine($"Progress: {String.Format("{0:P0}", (double)res.Count/n)}");
 
             if (i%4==0 && i != 0) {
                 Console.WriteLine("Sleeping");
@@ -173,6 +173,7 @@ public class DIP {
                 res.Add(document.datum.ToString());
             }
         }
+        Console.WriteLine($"Progress: 100%");
         return res;
     }
 
@@ -233,9 +234,14 @@ public class DIP {
     /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
     /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriod"/>.</exception>
     public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriod) {
+
         
         List<string> mentions = GetMentions(term, electionPeriod);
         SortedDictionary<string, int> res = new SortedDictionary<string, int>();
+
+        if (mentions.Count == 0) {
+            throw new IndexOutOfRangeException("no results found");
+        }
 
         foreach (string mention in mentions) {
 
