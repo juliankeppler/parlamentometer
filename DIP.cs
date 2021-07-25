@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using Newtonsoft.Json;
 
-public enum GroupMode{Year,Month}
+public enum GroupMode{Year,Month,Period}
 
 public class DIP {
     /// <summary>
@@ -181,7 +181,6 @@ public class DIP {
             Console.WriteLine($"Progress: {String.Format("{0:P0}", (double)res.Count/n)}");
 
             if (i%4==0 && i != 0) {
-                Console.WriteLine("Sleeping");
                 Thread.Sleep(1000);
             }
 
@@ -203,13 +202,21 @@ public class DIP {
 
     private SortedDictionary<string, int> FillZeroes(SortedDictionary<string, int> dict, GroupMode mode, int[] electionPeriods) {
 
-        string first = "";
-        string last = "";
+        string first;
+        string last;
+
+        if (electionPeriods.Length != 0) {
+            first = electoralPeriods[electionPeriods.Min()];
+            last = electoralPeriods[electionPeriods.Max()+1];
+        } else {
+            first = electoralPeriods[8]; // There are only few speeches recorded before the 8th electoral term this that period is irrelevant and should not be filled with zeroes
+            last = electoralPeriods[20];
+        }
 
         switch (mode) {
         case GroupMode.Year:
-            first = electoralPeriods[electionPeriods.Min()].Substring(0,4);
-            last = electoralPeriods[electionPeriods.Max()+1].Substring(0,4);
+            first = first.Substring(0,4);
+            last = last.Substring(0,4);
             
             int x = Convert.ToInt32(first);
             int y = Convert.ToInt32(last);
@@ -221,8 +228,6 @@ public class DIP {
             }
             break;
         case GroupMode.Month:
-            first = electoralPeriods[electionPeriods.Min()];
-            last = electoralPeriods[electionPeriods.Max()+1];
 
             int firsty = Convert.ToInt32(first.Substring(0,4));
             int firstm = Convert.ToInt32(first.Substring(5,2));
