@@ -51,23 +51,35 @@ public static class Plotter {
     
     //Printing Graph
     public static void Plot(string term, SortedDictionary<string, int> buckets, GroupMode mode){
+        
         var (dataX, dataY) = ConvertInput(buckets, mode);
-        // foreach(double x in dataX) {
-        //     Console.WriteLine(x);
-        // }
+
+        // Diagram colors
+        Color graphColor = Color.FromArgb(255, 33, 150, 243);
+        Color labelColor = Color.FromArgb(150, Color.Black);
+        Color gridColor = Color.FromArgb(40, Color.Black);
+
+        // Diagram dimensions
         var plt = new ScottPlot.Plot(1080, 400);
         plt.SetAxisLimits(dataX.Min(), dataX.Max(), dataY.Min(), dataY.Max()+0.1*dataY.Max());
-        // var psi = new ScottPlot.Statistics.Interpolation.NaturalSpline(dataX, dataY, resolution: 5);
-        // plt.AddScatter(psi.interpolatedXs, psi.interpolatedYs, lineWidth: 2, markerSize: 0);
+        plt.AddScatter(dataX, dataY, lineWidth: 4, markerSize: 0, color:graphColor);
+
+        // Diagram styling
         plt.XAxis.DateTimeFormat(true);
-        plt.YAxis.Label($"Reden in denen {term} erwähnt wurde");
         plt.XAxis.Grid(false);
+        plt.XAxis.TickLabelStyle(color: labelColor);
+        plt.XAxis.TickDensity(0.5);
+        plt.XAxis.TickMarkColor(Color.FromArgb(0, Color.Black));
         plt.YAxis.Ticks(true, false, true);
+        plt.YAxis.Label($"Reden in denen {term} erwähnt wurde");
+        plt.YAxis.TickLabelStyle(color: labelColor);
+        plt.YAxis.TickMarkColor(gridColor);
         plt.YAxis.TickDensity(0.8);
-        plt.Grid(color: Color.FromArgb(40, Color.Black));
+        plt.SetCulture(CultureInfo.CreateSpecificCulture("de-DE"));
+        plt.Grid(color: gridColor);
         plt.Frame(left: false, bottom: true, top: false, right: false);
-        plt.Title($"{term} im Bundestag");
-        plt.AddScatter(dataX, dataY, lineWidth: 3, markerSize: 0, color:Color.FromArgb(255, 33, 150, 243));
+        plt.XAxis2.Label($"{term} im Bundestag", bold: false, size: 22);
+        // Export diagram
         plt.SaveFig("graph.png");
     }
 }
