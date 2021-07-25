@@ -3,7 +3,7 @@
 ## Welche Themen treiben den Deutschen Bundestag um?
 Dieses Programm bietet eine Möglichkeit, die Relevanz einzelner Themen im politischen Diskurs zu visualisieren, aktuell und historisch.
 
-Mithilfe des Dokumentations- und Informationssystems für Parlamentsmaterialien (kurz *DIP*) und dessen API, können wir Plenarprotokolle des Deutschen Bundestags von ca. 1976 bis heute durchsuchen und abrufen. 
+Mithilfe des [Dokumentations- und Informationssystems für Parlamentsmaterialien](https://dip.bundestag.de/) (kurz *DIP*) und dessen API, können wir Plenarprotokolle des Deutschen Bundestags von ca. 1976 bis heute durchsuchen und abrufen. 
 
 Wir nutzen diese Funktion, um nachzuverfolgen, wie oft im Plenarsaal Reden gehalten werden oder wurden, welche bestimmte Stichwörter enthalten. Diesen Wert stellen wir in Abhängigkeit der Zeit grafisch dar.
 
