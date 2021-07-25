@@ -20,7 +20,7 @@ namespace sweproject {
                 Console.WriteLine("Für diesen Suchbegriff wurden im gegebenen Zeitraum keine Ergebnisse gefunden.");
             }
             
-            Plotter.Plot(term, buckets, gmode);
+            Plotter.Plot(term, buckets, mode);
         }
         static (string, int[]) GetUserInput(DIP dip) {
 
