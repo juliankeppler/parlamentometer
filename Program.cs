@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace sweproject {
@@ -19,7 +19,7 @@ namespace sweproject {
                 Console.WriteLine("Für diesen Suchbegriff wurden im gegebenen Zeitraum keine Ergebnisse gefunden.");
             }
             
-            Plotter.Plot(buckets, gmode);
+            Plotter.Plot(term, buckets, gmode);
         }
         static (string, GroupMode, int[]) GetUserInput(DIP dip) {
 
