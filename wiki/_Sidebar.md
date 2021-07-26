@@ -1,9 +1,7 @@
 # Content
 * [Home](Home)
 * [Tutorial](Tutorial)
-* [Struktur](UML)  
-  * [Klassendiagramm](https://github.com/juliankeppler/sweproject/wiki/UML#uml-klassendiagramm)
-  * [Aktivitätsdiagramm](https://github.com/juliankeppler/sweproject/wiki/UML#uml-aktivit%C3%A4tsdiagramm)
+* [UML-Diagramme](UML)  
 * [Documentation](Documentation)
   * [DIP.cs](https://github.com/juliankeppler/sweproject/wiki/Documentation#dip-type)
   * [Plot.cs](https://github.com/juliankeppler/sweproject/wiki/Documentation#plotter-type)
