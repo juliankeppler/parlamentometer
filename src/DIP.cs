@@ -216,7 +216,11 @@ namespace sweproject {
             return res;
         }
 
-
+        /// <summary>Fills the missing data points in a dictionary with the value 0.</summary>
+        /// <param name="dict">The <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> that will be filled.</param>
+        /// <param name="mode">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
+        /// <param name="electionPeriods">An <see cref="T:int[]"/> containing the selected election periods.</param>
+        /// <returns>The filled <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> .</returns>
         private SortedDictionary<string, int> FillZeroes(SortedDictionary<string, int> dict, GroupMode mode, int[] electionPeriods) {
 
             string first;
@@ -285,7 +289,6 @@ namespace sweproject {
         /// <param name="electionPeriods">An <see cref="T:int[]"/> containing the selected election periods.</param>
         /// <returns>A <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
-
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriods"/>.</exception>
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriods) {
 
@@ -327,7 +330,6 @@ namespace sweproject {
         /// <param name="mode">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
         /// <returns>A <see cref="System.Collections.Generic.Dictionary{String, Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
-
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/>.</exception>
 
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode) {
