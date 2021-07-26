@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 
 namespace sweproject {
+
     /// <summary>
     /// GroupMode provides different options for tallying up the results.
     /// </summary>
@@ -31,7 +32,7 @@ namespace sweproject {
     
         private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; // The APIKey used to perform requests. This is the public API-Key which rotates once a year.
         private const string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; // The base URL used for all requests to the DIP-API
-        private WebClient wc = new WebClient(); // The WebClient used to perform requests.
+        private IWebClient wc; // The WebClient used to perform requests.
         private Dictionary<string, int> numFoundCache = new Dictionary<string, int>(){}; // cached numFounds for searches
 
         private static Dictionary<int, string> electoralPeriods = new Dictionary<int, string>(){
@@ -59,6 +60,16 @@ namespace sweproject {
 
         /// <summary>Initializes a new instance of <see cref="DIP"/>.</summary>
         public DIP() {
+            wc = new SystemWebClient();
+            // Set authorization headers to access the advanced DIP API
+            wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
+            wc.Headers.Add("Origin", "https://dip.bundestag.de");
+            wc.Headers.Add("Referer", "https://dip.bundestag.de/");
+        }
+
+        /// <summary>Initializes a new instance of <see cref="DIP"/>.</summary>
+        public DIP(IWebClient webClient) {
+            wc = webClient;
             // Set authorization headers to access the advanced DIP API
             wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
             wc.Headers.Add("Origin", "https://dip.bundestag.de");
