@@ -27,5 +27,5 @@ jobs:
       uses: Andrew-Chen-Wang/github-wiki-action@v2
       env: 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_MAIL: ${{ secrets.YOUR_EMAIL }}
-        GH_NAME: ${{ github.repository_owner }}
+        GH_MAIL: "julian@juliankeppler.de"
+        GH_NAME: "juliankeppler"
