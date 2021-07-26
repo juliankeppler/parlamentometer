@@ -5,6 +5,8 @@
 
 - [DIP](#T-sweproject-DIP 'sweproject.DIP')
   - [#ctor()](#M-sweproject-DIP-#ctor 'sweproject.DIP.#ctor')
+  - [#ctor()](#M-sweproject-DIP-#ctor-sweproject-IWebClient- 'sweproject.DIP.#ctor(sweproject.IWebClient)')
+  - [FillZeroes(dict,mode,electionPeriods)](#M-sweproject-DIP-FillZeroes-System-Collections-Generic-SortedDictionary{System-String,System-Int32},sweproject-GroupMode,System-Int32[]- 'sweproject.DIP.FillZeroes(System.Collections.Generic.SortedDictionary{System.String,System.Int32},sweproject.GroupMode,System.Int32[])')
   - [GetMentions(term,electionPeriods)](#M-sweproject-DIP-GetMentions-System-String,System-Int32[]- 'sweproject.DIP.GetMentions(System.String,System.Int32[])')
   - [GetRelevance(term,mode,electionPeriods)](#M-sweproject-DIP-GetRelevance-System-String,sweproject-GroupMode,System-Int32[]- 'sweproject.DIP.GetRelevance(System.String,sweproject.GroupMode,System.Int32[])')
   - [GetRelevance(term,mode)](#M-sweproject-DIP-GetRelevance-System-String,sweproject-GroupMode- 'sweproject.DIP.GetRelevance(System.String,sweproject.GroupMode)')
@@ -16,10 +18,14 @@
 - [GroupMode](#T-sweproject-GroupMode 'sweproject.GroupMode')
   - [Month](#F-sweproject-GroupMode-Month 'sweproject.GroupMode.Month')
   - [Year](#F-sweproject-GroupMode-Year 'sweproject.GroupMode.Year')
+- [IWebClient](#T-sweproject-IWebClient 'sweproject.IWebClient')
+  - [Headers](#P-sweproject-IWebClient-Headers 'sweproject.IWebClient.Headers')
+  - [DownloadString(address)](#M-sweproject-IWebClient-DownloadString-System-String- 'sweproject.IWebClient.DownloadString(System.String)')
 - [Plotter](#T-sweproject-Plotter 'sweproject.Plotter')
   - [Plot()](#M-sweproject-Plotter-Plot-System-String,System-Collections-Generic-SortedDictionary{System-String,System-Int32},sweproject-GroupMode- 'sweproject.Plotter.Plot(System.String,System.Collections.Generic.SortedDictionary{System.String,System.Int32},sweproject.GroupMode)')
 - [Program](#T-sweproject-Program 'sweproject.Program')
   - [GetUserInput()](#M-sweproject-Program-GetUserInput-sweproject-DIP- 'sweproject.Program.GetUserInput(sweproject.DIP)')
+- [SystemWebClient](#T-sweproject-SystemWebClient 'sweproject.SystemWebClient')
 
 <a name='T-sweproject-DIP'></a>
 ## DIP `type`
@@ -42,6 +48,36 @@ Initializes a new instance of [DIP](#T-sweproject-DIP 'sweproject.DIP').
 ##### Parameters
 
 This constructor has no parameters.
+
+<a name='M-sweproject-DIP-#ctor-sweproject-IWebClient-'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Initializes a new instance of [DIP](#T-sweproject-DIP 'sweproject.DIP').
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='M-sweproject-DIP-FillZeroes-System-Collections-Generic-SortedDictionary{System-String,System-Int32},sweproject-GroupMode,System-Int32[]-'></a>
+### FillZeroes(dict,mode,electionPeriods) `method`
+
+##### Summary
+
+Fills the missing data points in a dictionary with the value 0.
+
+##### Returns
+
+The filled [SortedDictionary\`2](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.SortedDictionary`2 'System.Collections.Generic.SortedDictionary`2') .
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| dict | [System.Collections.Generic.SortedDictionary{System.String,System.Int32}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.SortedDictionary 'System.Collections.Generic.SortedDictionary{System.String,System.Int32}') | The [SortedDictionary\`2](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.SortedDictionary`2 'System.Collections.Generic.SortedDictionary`2') that will be filled. |
+| mode | [sweproject.GroupMode](#T-sweproject-GroupMode 'sweproject.GroupMode') | A [GroupMode](#T-sweproject-GroupMode 'sweproject.GroupMode') determining whether the results should be grouped by Month or Year. |
+| electionPeriods | [System.Int32[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32[] 'System.Int32[]') | An [int[]](#T-int[] 'int[]') containing the selected election periods. |
 
 <a name='M-sweproject-DIP-GetMentions-System-String,System-Int32[]-'></a>
 ### GetMentions(term,electionPeriods) `method`
@@ -249,6 +285,41 @@ Results are grouped by Month.
 
 Results are grouped by Year.
 
+<a name='T-sweproject-IWebClient'></a>
+## IWebClient `type`
+
+##### Namespace
+
+sweproject
+
+##### Summary
+
+Interface over [WebClient](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Net.WebClient 'System.Net.WebClient') for unit testing.
+
+<a name='P-sweproject-IWebClient-Headers'></a>
+### Headers `property`
+
+##### Summary
+
+Gets or sets a collection of header name/value pairs associated with the request.
+
+<a name='M-sweproject-IWebClient-DownloadString-System-String-'></a>
+### DownloadString(address) `method`
+
+##### Summary
+
+Downloads the requested resource as a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String'). The resource to download is specified as a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the URI.
+
+##### Returns
+
+A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the requested resource.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| address | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing a URI specifying the resource to download. |
+
 <a name='T-sweproject-Plotter'></a>
 ## Plotter `type`
 
@@ -292,3 +363,14 @@ A ([String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 ##### Parameters
 
 This method has no parameters.
+
+<a name='T-sweproject-SystemWebClient'></a>
+## SystemWebClient `type`
+
+##### Namespace
+
+sweproject
+
+##### Summary
+
+System web client.
