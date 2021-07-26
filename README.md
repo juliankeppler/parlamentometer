@@ -23,7 +23,7 @@ Die Erstellung der URL für die Verwendung der API sowie die Suche wird in **DIP
 **Plot.cs** enthält den notwendigen Code für die Ausführung der grafischen Darstellung mit ScottPlot.  
 **Program.cs** enthält die Main Methode, verknüpft die Dateien miteinander und führt sie aus.
 
-Die genaue Struktur und Funktion des Programms wird in der [Dokumentation](https://github.com/juliankeppler/sweproject/wiki) erläutert. 
+Die genaue Struktur und Funktion des Programms wird in der [Dokumentation](https://github.com/juliankeppler/sweproject/wiki/documentation) erläutert. 
 
 
 ## Installation
@@ -45,4 +45,4 @@ Das Programm ausführen:
 
 ## Dokumentation
 
-[Dokumentation im Wiki](https://github.com/juliankeppler/sweproject/wiki)
+[Dokumentation im Wiki](https://github.com/juliankeppler/sweproject/wiki/documentation)
