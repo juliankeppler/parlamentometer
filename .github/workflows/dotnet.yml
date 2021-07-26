@@ -25,4 +25,6 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: GitHub Wiki Action
       uses: Andrew-Chen-Wang/github-wiki-action@v2
+      env: 
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
