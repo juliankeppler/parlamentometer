@@ -88,7 +88,6 @@ namespace tests {
         [MemberData(nameof(TestFillZeroesData))]
         public void TestFillZeroes(SortedDictionary<string, int> dict, GroupMode mode, int[] electionPeriods, SortedDictionary<string, int> expected) {
             SortedDictionary<string, int> actual = CallPrivateMethod<DIP, SortedDictionary<string, int>>(dip, "FillZeroes", new object[]{dict, mode, electionPeriods});
-            Console.WriteLine(string.Join(Environment.NewLine, actual.Select(kvp => kvp.Key + ": " + kvp.Value.ToString())));
             
             Assert.Equal(expected, actual);
         }
