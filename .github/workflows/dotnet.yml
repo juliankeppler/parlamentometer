@@ -34,7 +34,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restor
+      run: dotnet build --no-restore
     - name: Update Wiki
       uses: Andrew-Chen-Wang/github-wiki-action@v2
       env: 
