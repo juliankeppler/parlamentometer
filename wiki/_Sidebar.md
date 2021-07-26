@@ -1,5 +1,5 @@
 # Content
-* [Home](Home)
+* [Zielstellung](Zielstellung)
 * [Tutorial](Tutorial)
 * [UML-Diagramme](UML)  
 * [Documentation](Documentation)
