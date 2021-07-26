@@ -1,14 +1,11 @@
 name: .NET
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: push
 
 jobs:
   build:
 
+    name: Build And Test Project
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +20,21 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+  documentation:
+    name: Generate Documentation
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restor
     - name: Update Wiki
       uses: Andrew-Chen-Wang/github-wiki-action@v2
       env: 
@@ -35,6 +47,3 @@ jobs:
           default_author: github_actions
           add: 'wiki/Documentation.md'
           message: 'Generate Documentation'
-          
-          
-
