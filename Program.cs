@@ -32,6 +32,8 @@ namespace sweproject {
             Plotter.Plot(term, buckets, mode);
         }
 
+        /// <summary>Prompts user to input search term and search time frame.</summary>
+        /// <returns>A (<see cref="System.String"/>, <see cref="T:int[]"/>) tuple holding a search term and an array of election periods. The string is not empty. The array may be empty.</returns>
         static (string, int[]) GetUserInput(DIP dip) {
 
             // declare return variables
