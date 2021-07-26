@@ -23,13 +23,14 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: GitHub Wiki Action
+    - name: Update Wiki
       uses: Andrew-Chen-Wang/github-wiki-action@v2
       env: 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_MAIL: "julian@juliankeppler.de"
         GH_NAME: github_actions
-    - uses: EndBug/add-and-commit@v7
+    - name: Update Documentation.md
+      uses: EndBug/add-and-commit@v7
       with:
           default_author: github_actions
           add: 'wiki/Documentation.md'
