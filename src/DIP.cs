@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 
 namespace sweproject {
+
     /// <summary>
     /// GroupMode provides different options for tallying up the results.
     /// </summary>
@@ -31,7 +32,7 @@ namespace sweproject {
     
         private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; // The APIKey used to perform requests. This is the public API-Key which rotates once a year.
         private const string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; // The base URL used for all requests to the DIP-API
-        private WebClient wc = new WebClient(); // The WebClient used to perform requests.
+        private IWebClient wc; // The WebClient used to perform requests.
         private Dictionary<string, int> numFoundCache = new Dictionary<string, int>(){}; // cached numFounds for searches
 
         private static Dictionary<int, string> electoralPeriods = new Dictionary<int, string>(){
@@ -59,6 +60,16 @@ namespace sweproject {
 
         /// <summary>Initializes a new instance of <see cref="DIP"/>.</summary>
         public DIP() {
+            wc = new SystemWebClient();
+            // Set authorization headers to access the advanced DIP API
+            wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
+            wc.Headers.Add("Origin", "https://dip.bundestag.de");
+            wc.Headers.Add("Referer", "https://dip.bundestag.de/");
+        }
+
+        /// <summary>Initializes a new instance of <see cref="DIP"/>.</summary>
+        public DIP(IWebClient webClient) {
+            wc = webClient;
             // Set authorization headers to access the advanced DIP API
             wc.Headers.Add("Authorization", "ApiKey "+DIP.APIKey);
             wc.Headers.Add("Origin", "https://dip.bundestag.de");
@@ -216,7 +227,11 @@ namespace sweproject {
             return res;
         }
 
-
+        /// <summary>Fills the missing data points in a dictionary with the value 0.</summary>
+        /// <param name="dict">The <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> that will be filled.</param>
+        /// <param name="mode">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
+        /// <param name="electionPeriods">An <see cref="T:int[]"/> containing the selected election periods.</param>
+        /// <returns>The filled <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> .</returns>
         private SortedDictionary<string, int> FillZeroes(SortedDictionary<string, int> dict, GroupMode mode, int[] electionPeriods) {
 
             string first;
@@ -285,7 +300,6 @@ namespace sweproject {
         /// <param name="electionPeriods">An <see cref="T:int[]"/> containing the selected election periods.</param>
         /// <returns>A <see cref="System.Collections.Generic.SortedDictionary{String, Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
-
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriods"/>.</exception>
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriods) {
 
@@ -327,7 +341,6 @@ namespace sweproject {
         /// <param name="mode">A <see cref="GroupMode"/> determining whether the results should be grouped by Month or Year.</param>
         /// <returns>A <see cref="System.Collections.Generic.Dictionary{String, Int32}"/> containing the amount of mentions of the <paramref name="term"/> grouped by time.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="term"/> is an invalid search term.</exception>
-
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/>.</exception>
 
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode) {
