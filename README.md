@@ -56,3 +56,9 @@ Das Programm ausführen:
 ## Documentation
 
 [All you need to know about the inner workings (in english).](https://github.com/juliankeppler/sweproject/wiki/documentation)
+
+
+<br><br><br><br>
+<div align="center">
+(-__-)<br>
+-<>-</div>
