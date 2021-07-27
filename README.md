@@ -48,3 +48,6 @@ Das Programm ausführen:
 ## Documentation
 
 [All you need to know about the inner workings (in english).](https://github.com/juliankeppler/sweproject/wiki/documentation)
+
+[<div align="right">![Coverage Status](https://coveralls.io/repos/github/juliankeppler/sweproject/badge.svg?branch=main)</div>](https://coveralls.io/github/juliankeppler/sweproject?branch=main)
+
