@@ -24,7 +24,7 @@ jobs:
       uses: coverallsapp/github-action@master   
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} 
-        path-to-lcov: tests/test/TestResults/coverage.info 
+        path-to-lcov: tests/TestResults/coverage.info 
 
   documentation:
     name: Generate Documentation
