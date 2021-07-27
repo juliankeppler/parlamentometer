@@ -43,7 +43,7 @@ Dependencies installieren:
 
 Das Programm ausführen:
 
-`dotnet run`
+`make start` oder `dotnet run -p src`
 
 ## Documentation
 
