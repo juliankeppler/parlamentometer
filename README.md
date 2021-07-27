@@ -4,7 +4,7 @@
   
 ### Welche Themen treiben den Deutschen Bundestag um?
   
-[![Coverage Status](https://coveralls.io/repos/github/juliankeppler/sweproject/badge.svg?branch=main)](https://coveralls.io/github/juliankeppler/sweproject?branch=main)
+<a href='https://coveralls.io/github/juliankeppler/sweproject?branch=main'><img src='https://coveralls.io/repos/github/juliankeppler/sweproject/badge.svg?branch=main' alt='Coverage Status' /></a>
 </div>
 
 #
