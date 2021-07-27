@@ -11,7 +11,7 @@ namespace tests {
         [MemberData(nameof(TestPlotCreatesFileData))]
         public void TestPlotCreatesFile(string term, SortedDictionary<string, int> data, GroupMode mode) {
             Plotter.Plot(term, data, mode);
-            Assert.Equal(true, File.Exists("graph.png"));
+            Assert.True(File.Exists("graph.png"));
         }
 
         public static IEnumerable<object[]> TestPlotCreatesFileData => new List<object[]>{
