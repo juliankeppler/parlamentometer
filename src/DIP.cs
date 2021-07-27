@@ -110,8 +110,14 @@ namespace sweproject {
             string requestURL = URLBase+ToQueryString(args);
 
             // Do request
-            string json = wc.DownloadString(requestURL);
-
+            string json;
+            try {
+                json = wc.DownloadString(requestURL);
+            } catch (Exception) {
+                Console.WriteLine("Unable to establish connection with DIP-API.");
+                Environment.Exit(0);
+                return null;
+            }
             // Convert json into dynamic object
             dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
 
@@ -188,7 +194,11 @@ namespace sweproject {
             if (numFoundCache.ContainsKey(term+electionPeriods.ToString())) {
                 n = numFoundCache[term+electionPeriods.ToString()];
             } else {
-                n = GetResults(term, electionPeriods);
+                try {
+                    n = GetResults(term, electionPeriods);
+                } catch(Exception) {
+                    throw;
+                }
             }
             
             int batchsize = 500;
@@ -303,8 +313,13 @@ namespace sweproject {
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/> during <paramref name="electionPeriods"/>.</exception>
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode, int[] electionPeriods) {
 
-            
-            List<string> mentions = GetMentions(term, electionPeriods);
+            List<string> mentions;
+            try {
+                mentions = GetMentions(term, electionPeriods);
+            } catch(Exception) {
+                throw;
+            }
+
             SortedDictionary<string, int> res = new SortedDictionary<string, int>();
 
             if (mentions.Count == 0) {
@@ -344,7 +359,11 @@ namespace sweproject {
         /// <exception cref="System.InvalidOperationException">There are too many results for <paramref name="term"/>.</exception>
 
         public SortedDictionary<string, int> GetRelevance(string term, GroupMode mode) {
-            return GetRelevance(term, mode, new int[]{});
+            try {
+                return GetRelevance(term, mode, new int[]{});
+            } catch(Exception) {
+                throw;
+            }
         }
 
     }
