@@ -1,6 +1,14 @@
-# Parlament-O-Meter
+<div align="center"><img src="https://user-images.githubusercontent.com/73278698/127150299-2430237a-eac3-43c0-b075-98a91de85cb7.png") alt="Beispieldiagramm Corona" width="600"/></div>
 
-## Welche Themen treiben den Deutschen Bundestag um?
+<div align="center"><img src="https://user-images.githubusercontent.com/73278698/127149208-97f3f66d-9570-4172-94ec-e500796b90ba.png") alt="Beispieldiagramm Corona" width="600"/>
+  
+### Welche Themen treiben den Deutschen Bundestag um?
+  
+[![Coverage Status](https://coveralls.io/repos/github/juliankeppler/sweproject/badge.svg?branch=main)](https://coveralls.io/github/juliankeppler/sweproject?branch=main)
+</div>
+
+#
+
 Unser Programm macht es möglich, die Relevanz einzelner Themen im politischen Diskurs des Deutschen Bundestags zu visualisieren, aktuell und historisch.
 
 Mithilfe des [Dokumentations- und Informationssystems für Parlamentsmaterialien](https://dip.bundestag.de/) (kurz *DIP*) und dessen [API](https://dip.bundestag.de/%C3%BCber-dip/hilfe/api), können wir Plenarprotokolle des Deutschen Bundestags von ca. 1976 bis heute durchsuchen und abrufen. 
