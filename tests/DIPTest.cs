@@ -56,11 +56,36 @@ namespace tests {
 
         [Theory]
         [MemberData(nameof(TestGetRelevanceData))]
-        public void TestGetRelevance(string term, int[] electionPeriods, GroupMode mode, string DIPResponse, string expectedQuery, SortedDictionary<string, int> expectedResults) {
+        public void TestGetRelevanceWithoutGetResults(string term, int[] electionPeriods, GroupMode mode, string DIPResponse, string expectedQuery, SortedDictionary<string, int> expectedResults) {
 
             MockWebClient wc = new MockWebClient();
             wc.downloadStringReturn = DIPResponse;
             dip = new DIP(wc);
+
+            SortedDictionary<string, int> actual;
+            if (electionPeriods != null) {
+                actual = dip.GetRelevance(term, mode, electionPeriods);
+            } else {
+                actual = dip.GetRelevance(term, mode);
+            }
+
+            Assert.Equal(expectedQuery, wc.downloadStringAddress);
+            Assert.Equal(expectedResults, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestGetRelevanceData))]
+        public void TestGetRelevanceAfterGetResults(string term, int[] electionPeriods, GroupMode mode, string DIPResponse, string expectedQuery, SortedDictionary<string, int> expectedResults) {
+
+            MockWebClient wc = new MockWebClient();
+            wc.downloadStringReturn = DIPResponse;
+            dip = new DIP(wc);
+            if (electionPeriods != null) {
+                int n = dip.GetResults(term, electionPeriods);
+            } else {
+                int n = dip.GetResults(term);
+            }
+
             SortedDictionary<string, int> actual;
             if (electionPeriods != null) {
                 actual = dip.GetRelevance(term, mode, electionPeriods);
@@ -83,6 +108,16 @@ namespace tests {
                 }
             },
         };
+
+        [Fact]
+        public void TestGetResultsEmptyStringThrowsException() {
+            MockWebClient wc = new MockWebClient();
+            dip = new DIP(wc);
+
+            Exception ex = Assert.Throws<ArgumentException>(() => dip.GetResults(""));
+
+            Assert.Equal("No search term provided!", ex.Message);
+        }
 
         [Theory]
         [MemberData(nameof(TestFillZeroesData))]
