@@ -30,7 +30,7 @@ namespace sweproject {
     /// </summary>
     public class DIP {
     
-        private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; // The APIKey used to perform requests. This is the public API-Key which rotates once a year.
+        private const string APIKey = "SbGXhWA.3cpnNdb8rkht7iWpvSgTP8XIG88LoCrGd4"; // Cool people API key
         private const string URLBase = "https://search.dip.bundestag.de/search-api/v1/advanced/search"; // The base URL used for all requests to the DIP-API
         private IWebClient wc; // The WebClient used to perform requests.
         private Dictionary<string, int> numFoundCache = new Dictionary<string, int>(){}; // cached numFounds for searches
@@ -55,7 +55,8 @@ namespace sweproject {
             {17, "2009-10"},
             {18, "2013-10"},
             {19, "2017-10"},
-            {20, "2021-10"}
+            {20, "2021-10"},
+            {21, "2025-10"}
         }; // Dictionary of when which electoral period started
 
         /// <summary>Initializes a new instance of <see cref="DIP"/>.</summary>

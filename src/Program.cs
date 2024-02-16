@@ -75,7 +75,7 @@ namespace sweproject {
                 if (periods.Min() < 1) {
                     Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
                     goto ReadPeriods;
-                } else if (periods.Max() > 19) {
+                } else if (periods.Max() > 20) {
                     Console.WriteLine("Der eingegebene Wert bezeichnet keine gültigen Legislaturperioden.");
                     goto ReadPeriods;
                 }
